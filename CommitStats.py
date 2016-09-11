@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """####################
 Author: Nathan Mador-House
 ####################"""
@@ -20,6 +18,7 @@ Index:
 
 from bs4 import BeautifulSoup
 import urllib.request
+import re
 
 ###################################################################
 # 2. FUNCTIONS
@@ -27,33 +26,45 @@ import urllib.request
 
 
 def make_html(url):
+    """ Make the html doc """
     html = urllib.request.Request(url)
     response = urllib.request.urlopen(html)
     return response.read().decode('utf-8')
 
 
 def make_soup(html):
-    soup = BeautifulSoup(html, 'html.parser')
-    return soup
+    """ Make the soup """
+    the_soup = BeautifulSoup(html, 'html.parser')
+    return the_soup
+
+
+def get_total_commits(soup):
+    """ Get the easy number """
+    total = soup.find_all("h3")
+    return re.sub("\D", "", total[1].string)
+
 
 def get_all_days(soup):
-    days = soup.find_all("rect", class_="day")
-    print("hi")
+    """ Get all the data for each day tag """
+    days = soup.find_all("rect", data-count)
     print(days)
-    print("bye")
     return days
-
-def 
 
 ###################################################################
 # 3. MAIN
 ###################################################################
 
+# print(get_total_commits(soup))
+
 ###################################################################
 # 4. TESTING
 ###################################################################
 
-site = "https://github.com/NathanMH"
-html = make_html(site)
-soup = make_soup(html)
-days = get_all_days(soup)
+def test():
+    """ Test function """
+    site = "https://github.com/NathanMH"
+    html = make_html(site)
+    soup = make_soup(html)
+    days = get_all_days(soup)
+
+test()
