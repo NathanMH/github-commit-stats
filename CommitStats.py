@@ -19,6 +19,7 @@ Index:
 from bs4 import BeautifulSoup
 import urllib.request
 import re
+import sys
 
 ###################################################################
 # 2. FUNCTIONS
@@ -78,7 +79,7 @@ class User():
 ###################################################################
 
 def main():
-    page = "https://github.com/NathanMH"
+    page = str(sys.argv[1])
     git_user = User(page)
     git_user.print_stats()
 
