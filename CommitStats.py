@@ -46,9 +46,18 @@ def get_total_commits(soup):
 
 def get_all_days(soup):
     """ Get all the data for each day tag """
-    days = soup.find_all("rect", data-count)
-    print(days)
-    return days
+    date_count = []
+    days = soup.find_all("rect")
+    for i in range(0, len(days)):
+        counter = re.search('data-count="."', str(days[i]))
+        number = re.sub("\D", "", counter.group(0))
+        date_count.append(number)
+    return date_count
+
+
+def count_math(count_list):
+    total = map(lambda i: +i, count_list)
+    print(total)
 
 ###################################################################
 # 3. MAIN
@@ -65,6 +74,7 @@ def test():
     site = "https://github.com/NathanMH"
     html = make_html(site)
     soup = make_soup(html)
-    days = get_all_days(soup)
+    date_count = get_all_days(soup)
+    count_math(date_count)
 
 test()
