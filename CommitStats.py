@@ -24,7 +24,7 @@ import re
 # 2. FUNCTIONS
 ###################################################################
 
-class user():
+class User():
 
     """ A user object """
 
@@ -32,16 +32,10 @@ class user():
         """ Init """
         self.url = url
         self.soup = self.make_soup()
-        self.total_commits = 
-        self.highest_commits = 
-        self.average_commits = 
-
-
-    def print_stats(self):
-        """ Print user stats """
-        print(self.total_commits)
-        print(self.highest_commits)
-        print(self.average_commits)
+        self.commit_list = self.get_data()
+        self.total_commits = self.get_total()
+        self.highest_commits = self.get_highest()
+        self.average_commits = self.get_average()
 
 
     def make_soup(self):
@@ -53,41 +47,43 @@ class user():
         return the_soup
 
 
-    def get_all_days(self):
+    def get_data(self):
         """ Get all the data for each day tag """
-        date_count = []
+        commit_list = []
         days = self.soup.find_all("rect")
         for i in range(0, len(days)):
             counter = re.search('data-count="."', str(days[i]))
             number = int(re.sub("\D", "", counter.group(0)))
-            date_count.append(number)
-        return date_count
+            commit_list.append(number)
+        return commit_list
 
 
-    def count_math(self):
-        total = sum(count_list)
-        average = round(total/len(count_list), 3)
-        highest = max(count_list)
-        print("Total commits: " + str(total))
-        print("Highest commits in single day: " + str(highest))
-        print("Average commits per day: " + str(average))
+    def get_total(self):
+        return sum(self.commit_list)
+    def get_average(self):
+        return round(self.total_commits/len(self.commit_list), 3)
+    def get_highest(self):
+        return max(self.commit_list)
+
+
+    def print_stats(self):
+        """ Print user stats """
+        print("Total commits: " + str(self.total_commits))
+        print("Highest commits in single day: " + str(self.highest_commits))
+        print("Average commits per day: " + str(self.average_commits))
+
 
 ###################################################################
 # 3. MAIN
 ###################################################################
 
-# print(get_total_commits(soup))
+def main():
+    page = "https://github.com/NathanMH"
+    git_user = User(page)
+    git_user.print_stats()
+
+main()
 
 ###################################################################
 # 4. TESTING
 ###################################################################
-
-def test():
-    """ Test function """
-    site = "https://github.com/NathanMH"
-    html = make_html(site)
-    soup = make_soup(html)
-    date_count = get_all_days(soup)
-    count_math(date_count)
-
-test()
