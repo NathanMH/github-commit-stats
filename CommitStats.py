@@ -50,14 +50,18 @@ def get_all_days(soup):
     days = soup.find_all("rect")
     for i in range(0, len(days)):
         counter = re.search('data-count="."', str(days[i]))
-        number = re.sub("\D", "", counter.group(0))
+        number = int(re.sub("\D", "", counter.group(0)))
         date_count.append(number)
     return date_count
 
 
 def count_math(count_list):
-    total = map(lambda i: +i, count_list)
-    print(total)
+    total = sum(count_list)
+    average = round(total/len(count_list), 3)
+    highest = max(count_list)
+    print("Total commits: " + str(total))
+    print("Highest commits in single day: " + str(highest))
+    print("Average commits per day: " + str(average))
 
 ###################################################################
 # 3. MAIN
