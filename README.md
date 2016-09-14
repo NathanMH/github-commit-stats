@@ -1,7 +1,7 @@
 # github-commit-stats
 Simple tool for some additional github commit statistics.
 
-![Python 3](https://img.shields.io/badge/python-3.5-blue.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.5-blue.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Usage
 

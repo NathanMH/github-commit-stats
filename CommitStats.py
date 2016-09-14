@@ -35,7 +35,9 @@ class User():
         self.soup = self.make_soup()
         self.commit_list = self.get_data()
         self.total_commits = self.get_total()
-        self.highest_commits = self.get_highest()
+        self.best_day = self.get_best_day()
+        self.best_week = self.get_best_week()
+        self.best_month = self.get_best_month()
         self.average_commits = self.get_average()
 
 
@@ -54,6 +56,8 @@ class User():
         days = self.soup.find_all("rect")
         for i in range(0, len(days)):
             counter = re.search('data-count="."', str(days[i]))
+            commit_date = re.search('data-date=".........."', str(days[i]))
+            print(commit_date)
             number = int(re.sub("\D", "", counter.group(0)))
             commit_list.append(number)
         return commit_list
@@ -63,8 +67,12 @@ class User():
         return sum(self.commit_list)
     def get_average(self):
         return round(self.total_commits/len(self.commit_list), 3)
-    def get_highest(self):
+    def get_best_day(self):
         return max(self.commit_list)
+    def get_best_month(self):
+        pass
+    def get_best_week(self):
+        pass
 
 
     def print_stats(self):
@@ -83,8 +91,15 @@ def main():
     git_user = User(page)
     git_user.print_stats()
 
-main()
+#main()
 
 ###################################################################
 # 4. TESTING
 ###################################################################
+
+def test():
+    page = "https://github.com/NathanMH"
+    git_user = User(page)
+
+test()
+
