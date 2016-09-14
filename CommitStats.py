@@ -25,7 +25,7 @@ import sys
 # 2. FUNCTIONS
 ###################################################################
 
-class User():
+class GitUser():
 
     """ A user object """
 
@@ -80,7 +80,7 @@ class User():
 
 def main():
     page = str(sys.argv[1])
-    git_user = User(page)
+    git_user = GitUser(page)
     git_user.print_stats()
 
 main()
