@@ -16,10 +16,10 @@ Index:
 # 1. IMPORTS AND README
 ###################################################################
 
-from bs4 import BeautifulSoup
-import urllib.request
 import re
 import sys
+from bs4 import BeautifulSoup
+import urllib.request
 
 ###################################################################
 # 2. FUNCTIONS
