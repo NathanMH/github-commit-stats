@@ -46,3 +46,4 @@ Temporary Items
 .apdisk
 __pycache__/easygui.cpython-34.pyc
 *.mp3
+.vscode

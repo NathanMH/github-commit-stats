@@ -2,7 +2,6 @@
 Author: Nathan Mador-House
 ####################"""
 
-#######################
 """####################
 Index:
     1. Imports and Readme
@@ -10,7 +9,6 @@ Index:
     3. Main
     4. Testing
 ####################"""
-#######################
 
 ###################################################################
 # 1. IMPORTS AND README
@@ -57,8 +55,13 @@ class GitUser():
         for i in range(0, len(days)):
             counter = re.search('data-count="."', str(days[i]))
             commit_date = re.search('data-date=".........."', str(days[i]))
-            print(commit_date)
-            number = int(re.sub("\D", "", counter.group(0)))
+            try:
+                number = int(re.sub("\D", "", counter.group(0)))
+            except Exception as e:
+                pass
+            finally:
+                number = 4
+            
             commit_list.append(number)
         return commit_list
 
@@ -74,11 +77,10 @@ class GitUser():
     def get_best_week(self):
         pass
 
-
     def print_stats(self):
         """ Print user stats """
         print("Total commits: " + str(self.total_commits))
-        print("Highest commits in single day: " + str(self.highest_commits))
+        print("Highest commits in single day: " + str(self.best_day))
         print("Average commits per day: " + str(self.average_commits))
 
 
@@ -99,7 +101,7 @@ def main():
 
 def test():
     page = "https://github.com/NathanMH"
-    git_user = User(page)
+    git_user = GitUser(page)
+    git_user.print_stats()
 
 test()
-
